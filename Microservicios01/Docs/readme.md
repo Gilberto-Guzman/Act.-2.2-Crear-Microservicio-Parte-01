@@ -1,8 +1,7 @@
 # Act. 2.2 Crear Microservicio Parte 01
 
 ### Repositorio:
-    https://github.com/Gilberto-Guzman/Act.-2.2-Crear-Microservicio-Parte-01
-
+    https://github.com/Gilberto-Guzman/Creacion-De-Microservicios
 ### Comandos utilizados:
     python3 -m venv proyectoweb
     http://10.33.26.185:8080/crear%20registro
