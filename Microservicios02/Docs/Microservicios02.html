@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Microservicios01.md</title>
+<title>Microservicios02.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -365,53 +365,59 @@ code {
           : 'default'
     });
   </script>
-<h1 id="act-22-crear-microservicio-parte-01">Act. 2.2 Crear Microservicio Parte 01</h1>
+<h1 id="act-22-crear-microservicio-parte-02">Act. 2.2 Crear Microservicio Parte 02</h1>
 <h3 id="repositorio">Repositorio:</h3>
-<pre><code>https://github.com/Gilberto-Guzman/Creacion-De-Microservicios/tree/master/Microservicios01
+<pre><code>https://github.com/Gilberto-Guzman/Creacion-De-Microservicios/tree/master/Microservicios02
 </code></pre>
 <h3 id="comandos-utilizados">Comandos utilizados:</h3>
-<pre><code>python3 -m venv proyectoweb
-http://10.33.26.185:8080/crear%20registro
+<pre><code>http://10.33.26.185:8080/crear%20registro
 </code></pre>
 <h3 id="librerias-utilizadas">Librerias Utilizadas:</h3>
 <pre><code>pip install flask
 pip install faker
 </code></pre>
 <h3 id="capturas">Capturas.</h3>
-<h4 id="1-estructuramos-nuestro-proyecto-%E2%9E%A1-creamos-la-carpeta-api-database-faker-y-web">1. Estructuramos nuestro proyecto ➡ Creamos la carpeta api, database, faker y web.</h4>
-<h5 id="nota-la-carpeta-docs-hace-referencia-unicamente-a-la-documentaci%C3%B3n-del-proyecto-osea-que-su-creacion-es-opcional-y-no-afecta-a-la-funcionalidad-del-codigo">Nota: La carpeta Docs hace referencia unicamente a la documentación del proyecto, osea que su creacion es opcional y no afecta a la funcionalidad del codigo.</h5>
+<h4 id="1-estructuramos-nuestro-proyecto-%E2%9E%A1-realizamos-una-copia-de-seguridad-de-nuestro-archivo-y-lo-renombramos-como-%22microservicios02%22">1. Estructuramos nuestro proyecto ➡ Realizamos una copia de seguridad de nuestro archivo, y lo renombramos como &quot;Microservicios02&quot;.</h4>
 <p><img src="Captures/1.png" alt="1"></p>
-<h4 id="2-creaci%C3%B3n-de-proyectoweb-%E2%9E%A1-a%C3%B1adimos-dentro-de-faker-proyectoweb-mediante-el-siguiente-comando">2. Creación de proyectoweb ➡ Añadimos dentro de faker proyectoweb mediante el siguiente comando:</h4>
-<h5 id="nota-este-nos-proovera-de-una-plantilla-la-cual-nos-servira-proximamente">Nota: Este nos proovera de una plantilla la cual nos servira proximamente.</h5>
-<pre><code>python3 -m venv proyectoweb
-</code></pre>
-<p><img src="Captures/2.png" alt="2"></p>
-<h4 id="3-creaci%C3%B3n-de-fakerservicio-%E2%9E%A1-creamos-un-archivo-de-python-llamado-fakerserviciopy--el-cual-contendra-el-siguiente-codigo">3. Creación de fakerservicio ➡ Creamos un archivo de python llamado fakerservicio.py , el cual contendra el siguiente codigo:</h4>
-<pre><code>from flask import Flask
+<h4 id="2-actualizamos-el-contenido-de-fakerserviciopy-%E2%9E%A1-modificamos-el-codigo-de-la-siguiente-manera">2. Actualizamos el contenido de fakerservicio.py ➡ Modificamos el codigo de la siguiente manera:</h4>
+<pre><code>from flask import Flask, jsonify
 from faker import Faker
+import itertools
 
 app = Flask(__name__)
 faker = Faker()
 
+
+def random_data():
+    profiles = [dict(itertools.islice(faker.profile().items(), 6))
+                for data in range(13)]
+    return profiles
+
+
 @app.route('/crear registro')
 def create_profiles():
     try:
-        return {&quot;message&quot;: &quot;Creando Registro&quot;}
+        data_profiles = random_data()
+        return jsonify(data_profiles)
+        # print(data_profiles)
+        # return {&quot;message&quot;: &quot;Creando Registro&quot;}
     except:
         return {&quot;Error en crear registro&quot;}
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
 </code></pre>
+<h4 id="nota-se-a%C3%B1adio-una-funcion-llamada-%22randomdata%22-la-cual-generara-los-datos-aleatoerios-y-se-actualizo-el-funcionamiento-de-%22createprofiles%22-para-el-muestreo-de-los-datos-en-formato-json">Nota: Se añadio una funcion llamada &quot;random_data&quot;, la cual generara los datos aleatoerios, y se actualizo el funcionamiento de &quot;create_profiles&quot; para el muestreo de los datos en formato json.</h4>
+<p><img src="Captures/2.png" alt="2"></p>
+<h4 id="3-ejecuci%C3%B3n-del-codigo-%E2%9E%A1-daremos-clic-derecho-en-%22run-in-python-terminal%22-para-corroborar-que-el-codigo-este-funcionando">3. Ejecución del codigo ➡ Daremos clic derecho en &quot;run in python terminal&quot; para corroborar que el codigo este funcionando.</h4>
 <p><img src="Captures/3.png" alt="3"></p>
-<h4 id="4-ejecuci%C3%B3n-del-codigo-%E2%9E%A1-daremos-clic-derecho-en-%22run-in-python-terminal%22-para-corroborar-que-el-codigo-este-funcionando">4. Ejecución del codigo ➡ Daremos clic derecho en &quot;run in python terminal&quot; para corroborar que el codigo este funcionando.</h4>
-<p><img src="Captures/4.png" alt="4"></p>
 <h4 id="y-luego-en-el-navegador-digitaremos-la-siguiente-direcci%C3%B3n">Y luego en el navegador, digitaremos la siguiente dirección:</h4>
 <pre><code>http://10.33.26.185:8080/crear%20registro
 </code></pre>
-<p><img src="Captures/4.1.png" alt="4.1"></p>
+<p><img src="Captures/3.1.png" alt="3.1"></p>
 <h4 id="esta-nos-mostrara-la-creaci%C3%B3n-del-registro">Esta nos mostrara la creación del registro.</h4>
-<p><img src="Captures/4.2.png" alt="4.2"></p>
+<p><img src="Captures/3.2.png" alt="3.2"></p>
 
 </body>
 </html>
